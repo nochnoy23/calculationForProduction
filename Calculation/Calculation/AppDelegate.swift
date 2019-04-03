@@ -1,10 +1,4 @@
-//
-//  AppDelegate.swift
-//  Calculation
-//
-//  Created by Nochnoy Anton on 26/03/2019.
-//  Copyright © 2019 Nochnoy Anton. All rights reserved.
-//
+
 
 import Cocoa
 

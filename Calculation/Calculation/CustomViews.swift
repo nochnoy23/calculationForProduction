@@ -1,13 +1,10 @@
-//
-//  CustomViews.swift
-//  Calculation
-//
-//  Created by Nochnoy Anton on 29/03/2019.
-//  Copyright © 2019 Nochnoy Anton. All rights reserved.
-//
-
+//Файл с классами вьюшек
+//Тут происходит создание всех экранов, и все что они содеражт
+//В целом здесь все просто, я начало чуть описал, дальше в целом по аналогии, при не понятках мне писать
+//И да, скорее все же придется лично встречаться
 import Cocoa
 
+//Класс первого вью
 class CustomFirstView: NSView {
     init(items: [[Item]], callback: @escaping () -> ()) {
         
@@ -15,11 +12,12 @@ class CustomFirstView: NSView {
         
         var arrayInputs: [NSView] = []
         for item in items {
+            //создание стэка входных полей
             arrayInputs.append(createStack(views: createHorizontalView(items: item)))
         }
-        
+        //Создание вью с кнопкой
         let buttonView = CustomButtonView(with: "Продолжить", callback: callback)
-        
+        //Созданию вью главного заголовка
         let titleView = CustomTitleView(with: "Пожалуйста, введите степень реализации мероприятия")
         
         self.add(subview: createGlobalView(titleView: titleView,
@@ -29,15 +27,16 @@ class CustomFirstView: NSView {
                                            buttonView: buttonView),
                  with: [.top, .bottom, .leading, .trailing])
         
-        self.translatesAutoresizingMaskIntoConstraints = false
-        self.widthAnchor.constraint(equalToConstant: 1100).isActive = true
-        self.heightAnchor.constraint(equalToConstant: 580).isActive = true
+        self.setDimensions(width: 1100, height: 580)
     }
     
     required init?(coder decoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //Создание всего вью для первого экрана
+    //Я разделил первый экран на 5 частей - надеюсб поймешь на какие, если нет, я нарисую тебе
+    //попробуй разобарться, в целом из названия очевидно, но если начнет от этого болеть голова, лучше спроси у меня
     private func createGlobalView(titleView: NSView,
                                   leftView: NSView,
                                   centralView: NSView,
@@ -179,7 +178,7 @@ class CustomSecondView: NSView {
         return firstString
     }
 }
-
+//Создание вью с кнопкой
 class CustomButtonView: NSView {
     init(with title: String, callback: @escaping () -> ()) {
         self.callback = callback
@@ -187,9 +186,9 @@ class CustomButtonView: NSView {
 
         let button = NSButton(with: title)
         button.target = self
-        button.action = #selector(pressButton)
+        button.action = #selector(pressButton) //указываем какое событие будет выполняется по нажатию на кнопку
         
-        self.addToCenter(for: button)
+        self.addCenter(to: button)
         
         button.heightAnchor.constraint(equalToConstant: 40).isActive = true
         button.widthAnchor.constraint(equalToConstant: 250).isActive = true
